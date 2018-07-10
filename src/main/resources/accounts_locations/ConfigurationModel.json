@@ -1,0 +1,57 @@
+/*
+A config file to demonstrate how the demo database "Location_Demo" can be masked.
+
+Not intended to generate public data sets. That would require among others the use of http://arx.deidentifier.org/ or Imperva. The main limitations reside in 
+  (1) not being able to configure the selective replacement of values in  specific rows;
+  
+  (2) not being able to mask parts of collections (IDREFs which would have to be partially extended/reduced to introduce fuzziness).  That limitation (2) is clearly exposed in the example dataset, where Account with ID 10 has 101 locations. Even if we permute the IDs then this exceptional account could be re-identified;
+  
+  (3) No support for IDREF-preserving permutations of IDs. So, if you use our current masking features for randomizing IDs then you may create dangling references (unless you are careful about setting a MAX ID value in Mockaroo...). Even if you do not get out of bounds IDs from Mockaroo then still the nature of the implicit collections may have become completely meaningless.
+
+ The below configuration relies on Mockaroo APIs, which were created from MySQL DDL followed by the below VIM substitutions:
+
+  :% s/AUTO_INCREMENT//g
+  :% s/COLLATE utf8mb4_unicode_ci//g
+  :% s/AUTO_INCREMENT//g
+  :% s/bigint(20)/serial/g
+  :% s/user/user_/g
+  :% s/`//g
+
+*/
+{
+   "databaseConfig": { // https://www.javatpoint.com/example-to-connect-to-the-mysql-database
+     "driver": "com.mysql.jdbc.Driver",
+     "url": "jdbc:mysql://localhost:3306/test?useUnicode=true&character_set_server=utf8mb4",
+     "username": "testuserfordemo",
+     "password": "testuserfordemo",
+     "updatesEnabled": true
+   },
+  "columnMappings": [
+  {
+    "srcTable":"Location_Demo",
+    "srcColumn":"street",
+    "mockarooURL":"https://my.api.mockaroo.com/location_mock.json?count=1000&key=ebf97070",
+    "localJSON": "Location_Mock.json",
+    "jsonAttribute":"street"
+  },
+    {
+    "srcTable":"Location_Demo",
+    "srcColumn":"city",
+    "mockarooURL":"https://my.api.mockaroo.com/location_mock.json?count=1000&key=ebf97070",
+    "localJSON": "Location_Mock.json",
+    "jsonAttribute":"city"
+  },
+      {
+    "srcTable":"Location_Demo",
+    "srcColumn":"country",
+    "mockarooURL":"https://my.api.mockaroo.com/location_mock.json?count=1000&key=ebf97070",
+    "localJSON": "Location_Mock.json",
+    "jsonAttribute":"country"
+  }
+],
+  "flushTableConfigs": [
+    {
+      "tableName": "sometable1"
+    }
+  ]
+}

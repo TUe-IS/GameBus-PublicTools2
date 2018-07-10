@@ -1,0 +1,24 @@
+What had to be cleaned:
+ 1. remove all `
+ 2. remove the trailing charset commands
+
+More generally, the following VIM commands can be used
+
+:% s/AUTO_INCREMENT//g
+  :% s/COLLATE utf8mb4_unicode_ci//g
+  :% s/AUTO_INCREMENT//g
+  :% s/bigint(20)/serial/g
+  :% s/user/user_/g
+  :% s/`//g
+
+==
+
+WORKING RESULT, slightly but clearly different from what MySQL had generated:
+
+CREATE TABLE Location_Demo (
+  id int DEFAULT NULL,
+  account int DEFAULT NULL,
+  street varchar(50) DEFAULT NULL,
+  city varchar(50) DEFAULT NULL,
+  country varchar(50) DEFAULT NULL
+);

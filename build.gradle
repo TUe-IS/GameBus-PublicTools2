@@ -1,0 +1,41 @@
+group 'GameBus'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'application'
+mainClassName = 'com.pietervangorp.gamebus.util.SimpleDatabaseMasker'
+
+sourceCompatibility = 1.7
+
+import javax.tools.ToolProvider // for com.sun.tools.javac.util.Pair in tools.jar: https://stackoverflow.com/questions/11345193/gradle-does-not-find-tools-jar
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile (files(((URLClassLoader) ToolProvider.getSystemToolClassLoader()).getURLs()))     // for Pair in tools.jar: https://stackoverflow.com/questions/11345193/gradle-does-not-find-tools-jar
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compileOnly 'org.projectlombok:lombok:1.16.18'
+
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.7'
+
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
+
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+
+    // https://mvnrepository.com/artifact/org.glassfish/javax.json ==> official JSR 374
+    compile group: 'org.glassfish', name: 'javax.json', version: '1.1.2'
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+}
+
+task demoRun(type: JavaExec) {
+    main = 'com.pietervangorp.gamebus.util.SimpleDatabaseMasker'
+    classpath = sourceSets.main.runtimeClasspath
+    args = ["accounts_locations/ConfigurationModel.json"]
+}

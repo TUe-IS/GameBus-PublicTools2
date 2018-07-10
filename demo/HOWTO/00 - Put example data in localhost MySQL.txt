@@ -1,0 +1,3 @@
+Take the files of the init folder to initialize a localhost test database. That database is then considered the "sensitive source" data, which we will mask in this demo.
+
+Also, please provide a user with username/password equal to testuserfordemo/testuserfordemo and with select/update/drop rights to the database/tables from the init folder.
