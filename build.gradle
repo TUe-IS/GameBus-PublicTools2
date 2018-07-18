@@ -1,12 +1,12 @@
 group 'GameBus'
 version '1.0-SNAPSHOT'
 
-apply plugin: 'java'
+//apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'application'
-mainClassName = 'com.pietervangorp.gamebus.util.SimpleDatabaseMasker'
+mainClassName = 'com.pietervangorp.gamebus.util.StreamMaskingSample'
 
-sourceCompatibility = 1.7
+sourceCompatibility = 1.8
 
 import javax.tools.ToolProvider // for com.sun.tools.javac.util.Pair in tools.jar: https://stackoverflow.com/questions/11345193/gradle-does-not-find-tools-jar
 
@@ -32,10 +32,32 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+    
+    // https://mvnrepository.com/artifact/com.google.guava/guava
+    compile group: 'com.google.guava', name: 'guava', version: '25.1-jre'
+
+    // https://mvnrepository.com/artifact/org.eclipse.persistence/eclipselink
+    compile group: 'org.eclipse.persistence', name: 'eclipselink', version: '2.5.0'
+    
+    // https://mvnrepository.com/artifact/org.eclipse.persistence/javax.persistence
+    compile group: 'org.eclipse.persistence', name: 'javax.persistence', version: '2.1.0'
+    
+    // https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils
+    compile group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.3'
+
+    // https://mvnrepository.com/artifact/commons-collections/commons-collections
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2.2'
+
+    // https://mvnrepository.com/artifact/commons-logging/commons-logging
+    compile group: 'commons-logging', name: 'commons-logging', version: '1.2'
+    
+    // https://mvnrepository.com/artifact/net.bytebuddy/byte-buddy
+    compile group: 'net.bytebuddy', name: 'byte-buddy', version: '1.8.13'
+
 }
 
 task demoRun(type: JavaExec) {
-    main = 'com.pietervangorp.gamebus.util.SimpleDatabaseMasker'
+    //main = 'com.pietervangorp.gamebus.util.SimpleDatabaseMasker'
     classpath = sourceSets.main.runtimeClasspath
     args = ["accounts_locations/ConfigurationModel.json"]
 }

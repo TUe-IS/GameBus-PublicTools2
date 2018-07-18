@@ -21,7 +21,7 @@ Not intended to generate public data sets. That would require among others the u
 {
    "databaseConfig": { // https://www.javatpoint.com/example-to-connect-to-the-mysql-database
      "driver": "com.mysql.jdbc.Driver",
-     "url": "jdbc:mysql://localhost:3306/test?useUnicode=true&character_set_server=utf8mb4",
+     "url": "jdbc:mysql://localhost:3306/gamebustest?useUnicode=true&character_set_server=utf8mb4",
      "username": "testuserfordemo",
      "password": "testuserfordemo",
      "updatesEnabled": true
@@ -29,7 +29,7 @@ Not intended to generate public data sets. That would require among others the u
   "columnMappings": [
   {
     "srcTable":"Location_Demo",
-    "srcColumn":"street",
+    "srcColumn":"location",
     "mockarooURL":"https://my.api.mockaroo.com/location_mock.json?count=1000&key=ebf97070",
     "localJSON": "Location_Mock.json",
     "jsonAttribute":"street"
